@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/';
 
 export function useForm(initialValues) {
@@ -17,7 +17,6 @@ export function useForm(initialValues) {
         values,
         setValues,
         handleInputChange,
-
     }      
 }
 
