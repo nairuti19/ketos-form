@@ -2,6 +2,7 @@ import React from 'react';
 import {Grid} from '@material-ui/core/';
 import { useForm, CustomForm } from '../components/useForm';
 import TextInput from '../components/TextInput';
+import CustomButton from '../components/CustomButton';
 
 const initialValues = {
     id: 0, 
@@ -54,6 +55,14 @@ export default function SupportForm() {
                    value={values.requestMessage}
                    onChange={handleInputChange}
                   />
+                </Grid>
+                <Grid item xs={12}>
+                <CustomButton
+                variant = "contained"
+                size = "large"
+                color = "primary"
+                text= "Submit"
+                type="submit"/>
                 </Grid>
             </Grid>
         </CustomForm>
