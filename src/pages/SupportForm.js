@@ -14,14 +14,35 @@ const initialValues = {
 
 export default function SupportForm() {
 
+    const validate = () => {
+        let validateTemp = {}
+        validateTemp.firstName = values.firstName?"":"This field is required"
+        validateTemp.lastName = values.lastName?"":"This field is required"
+        validateTemp.emailFormat = (/$^|.+@.+..+/).test(values.email) ? "" : "Email is not valid."
+        validateTemp.email = values.email?"":"This field is required"
+        validateTemp.requestMessage = values.requestMessage?"":"This field is required"
+        setErrors({
+            ...validateTemp
+        })
+        return Object.values(validateTemp).every(x => x == "")
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if(validate()){}
+            window.alert('testing...')
+    }
+
     const{
         values,
         setValues,
+        errors,
+        setErrors,
         handleInputChange
     } = useForm(initialValues);
 
     return ( 
-        <CustomForm>
+        <CustomForm onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                 <TextInput
@@ -29,6 +50,7 @@ export default function SupportForm() {
                   label="First Name"
                   value={values.firstName}
                   onChange={handleInputChange}
+                  error={errors.firstName}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -38,6 +60,7 @@ export default function SupportForm() {
                     name="lastName"
                     value={values.lastName}
                     onChange={handleInputChange}
+                    error={errors.lastName}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -46,6 +69,7 @@ export default function SupportForm() {
                    label="Email Address"
                    value={values.email}
                    onChange={handleInputChange}
+                   error={errors.email}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -54,6 +78,7 @@ export default function SupportForm() {
                    label="Please describe the problem"
                    value={values.requestMessage}
                    onChange={handleInputChange}
+                   error={errors.requestMessage}
                   />
                 </Grid>
                 <Grid item xs={12}>
