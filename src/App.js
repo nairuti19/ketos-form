@@ -1,22 +1,40 @@
 import './App.css';
 import SupportForm from './pages/SupportForm';
-import {Paper, makeStyles} from '@material-ui/core';
+import {Paper, makeStyles, CssBaseline, createMuiTheme, ThemeProvider} from '@material-ui/core';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#3879B6",
+      textColor: "#ffffff"
+    },
+  },
+  overrides:{
+    MuiAppBar:{
+      root:{
+        transform:'translateZ(0)'
+      }
+    }
+  },
+})
 
 const useStyles = makeStyles(theme=>({
-  pageContent:{
-          margin: theme.spacing(5),
-          padding: theme.spacing(3)
+  appMain: {
+        width: '100%',
       }
 }))
 
 function App() {
   const classes = useStyles();
     return ( 
+      <ThemeProvider theme={theme}>
       <div>
         <Paper className={classes.pageContent}>
         <SupportForm/>
         </Paper>
       </div>
+      <CssBaseline />
+      </ThemeProvider>
     );
 }
 

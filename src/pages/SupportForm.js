@@ -14,17 +14,22 @@ const initialValues = {
 
 export default function SupportForm() {
 
-    const validate = () => {
-        let validateTemp = {}
-        validateTemp.firstName = values.firstName?"":"This field is required"
-        validateTemp.lastName = values.lastName?"":"This field is required"
-        validateTemp.emailFormat = (/$^|.+@.+..+/).test(values.email) ? "" : "Email is not valid."
+    const validate = (fieldValues = values) => {
+        let validateTemp = {...errors}
+        if('firstName' in fieldValues)
+            validateTemp.firstName = values.firstName?"":"This field is required"
+        if('lastName' in fieldValues)
+            validateTemp.lastName = values.lastName?"":"This field is required"
+        if('email' in fieldValues)
+            validateTemp.emailFormat = (/$^|.+@.+..+/).test(values.email) ? "" : "Email is not valid."
         validateTemp.email = values.email?"":"This field is required"
-        validateTemp.requestMessage = values.requestMessage?"":"This field is required"
+        if('requestMessage' in fieldValues)
+            validateTemp.requestMessage = values.requestMessage?"":"This field is required"
         setErrors({
             ...validateTemp
         })
-        return Object.values(validateTemp).every(x => x == "")
+        if(fieldValues == values)
+            return Object.values(validateTemp).every(x => x == "")
     }
 
     const handleSubmit = e => {
@@ -38,8 +43,8 @@ export default function SupportForm() {
         setValues,
         errors,
         setErrors,
-        handleInputChange
-    } = useForm(initialValues);
+        handleInputChange,
+    } = useForm(initialValues, true, validate);
 
     return ( 
         <CustomForm onSubmit={handleSubmit}>
