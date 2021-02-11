@@ -30,6 +30,7 @@ function App() {
       <ThemeProvider theme={theme}>
       <div>
         <Paper className={classes.pageContent}>
+        <Header/>
         <SupportForm/>
         </Paper>
       </div>
