@@ -43,44 +43,89 @@ const useStyles = makeStyles((theme) => ({
 
 //Function to generate a random user id
 function uidGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  var S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  );
 }
 
 //Function to store customer details
-export const addCustomer = async (firstName, lastName, email, requestMessage) => {
-    const id = uidGenerator(); 
-    const response = await fetch(`https://6aspa9vplk.execute-api.us-east-2.amazonaws.com/dev/customer`, {
-        method: 'POST',
-        body:JSON.stringify({
-          "firstname":firstName,"email": email, "lastname":lastName, "complaint":requestMessage, "id": id
-            },
-        ),
-        headers: {
-            "Content-type": 'application/json',
-            "Access-Control-Allow-Origin":"*",
-            "Access-Control-Allow-Methods":"OPTIONS,POST,GET"
-        }
-    });
-    return await response.json();
-}
+export const addCustomer = async (
+  firstName,
+  lastName,
+  email,
+  requestMessage
+) => {
+  const id = uidGenerator();
+  const response = await fetch(
+    `https://6aspa9vplk.execute-api.us-east-2.amazonaws.com/dev/customer`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        firstname: firstName,
+        email: email,
+        lastname: lastName,
+        complaint: requestMessage,
+        id: id,
+      }),
+      headers: {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+      },
+    }
+  );
+  return await response.json();
+};
 
+//Function to
+export const sendEmail = async () => {
+  const response = await fetch(
+    `https://n1s8xkejwd.execute-api.us-east-2.amazonaws.com/dev`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        "Access-Control-Allow-Headers":
+          "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+      },
+    }
+  );
+  return await response.json();
+};
 
 export default function SupportForm() {
   //Validation function to ensure required fields and correct format
   const validate = (fieldValues = values) => {
     let validateTemp = { ...errors };
     if ("firstName" in fieldValues)
-      validateTemp.firstName = values.firstName ? "" : "Valid first Name is required";
+      validateTemp.firstName = values.firstName
+        ? ""
+        : "Valid first Name is required";
     if ("lastName" in fieldValues)
-      validateTemp.lastName = values.lastName ? "" : "Valid last Name is required";
+      validateTemp.lastName = values.lastName
+        ? ""
+        : "Valid last Name is required";
     if ("email" in fieldValues)
       validateTemp.email = values.email ? "" : "Valid email is required";
-      validateTemp.emailFormat = /$^|.+@.+..+/.test(values.email)
-        ? ""
-        : "Email is not valid";
+    validateTemp.emailFormat = /$^|.+@.+..+/.test(values.email)
+      ? ""
+      : "Email is not valid";
     if ("requestMessage" in fieldValues)
       validateTemp.requestMessage = values.requestMessage
         ? ""
@@ -95,9 +140,15 @@ export default function SupportForm() {
   //Callback for Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    addCustomer(values.firstName, values.lastName, values.email, values.requestMessage).then(r=>r);
     if (validate()) {
-      window.alert('Form successfully submitted')
+      window.alert("Form successfully submitted");
+      addCustomer(
+        values.firstName,
+        values.lastName,
+        values.email,
+        values.requestMessage
+      ).then((r) => r);
+      sendEmail();
     }
   };
 
