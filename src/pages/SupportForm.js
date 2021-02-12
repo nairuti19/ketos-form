@@ -1,8 +1,9 @@
 import React from 'react';
-import {Grid} from '@material-ui/core/';
+import {Grid, makeStyles, Typography, Container} from '@material-ui/core/';
 import { useForm, CustomForm } from '../components/useForm';
 import TextInput from '../components/TextInput';
 import CustomButton from '../components/CustomButton';
+
 
 const initialValues = {
     id: 0, 
@@ -11,6 +12,35 @@ const initialValues = {
     email: '', 
     requestMessage: '',
 }
+
+const useStyles = makeStyles(theme=>({
+    form: {
+        width: '100%', 
+        marginTop: theme.spacing(1),
+    }, 
+    submit: {
+        margin: theme.spacing(2, 0, 2),
+        backgroundColor: '#3879B6',
+        marginBottom: theme.spacing(8)
+      },
+      paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& .MuiTypography-root':{
+            alignSelf: 'flex-start',
+            marginBottom: theme.spacing(2)
+        },
+        '& .MuiTypography-body1':{
+            marginBottom: theme.spacing(4)
+        },
+        '& .MuiGrid-root':{
+            marginBottom: theme.spacing(1)
+        },
+      },
+
+})) 
 
 export default function SupportForm() {
 
@@ -46,10 +76,17 @@ export default function SupportForm() {
         handleInputChange,
     } = useForm(initialValues, true, validate);
 
+    const classes = useStyles();
+
+
     return ( 
-        <CustomForm onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
+        <Container component="main" maxWidth="sm">
+        <div className={classes.paper}>
+        <Typography variant="h4" className={classes.root}>Let us help you</Typography>
+        <Typography>Please describe your issue and we'll get in touch</Typography>
+        <CustomForm onSubmit={handleSubmit} className={classes.form}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
                 <TextInput
                   name="firstName"
                   label="First Name"
@@ -58,7 +95,7 @@ export default function SupportForm() {
                   error={errors.firstName}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                 <TextInput
                     variant="outlined"
                     label="Last Name"
@@ -79,6 +116,8 @@ export default function SupportForm() {
                 </Grid>
                 <Grid item xs={12}>
                 <TextInput
+                   multiline
+                   rows={4}
                    name="requestMessage"
                    label="Please describe the problem"
                    value={values.requestMessage}
@@ -86,15 +125,17 @@ export default function SupportForm() {
                    error={errors.requestMessage}
                   />
                 </Grid>
-                <Grid item xs={12}>
                 <CustomButton
+                fullWidth
                 variant = "contained"
                 size = "large"
                 color = "primary"
                 text= "Submit"
-                type="submit"/>
-                </Grid>
+                type="submit"
+                className={classes.submit}/>
             </Grid>
         </CustomForm>
+        </div>
+        </Container>
     )
 }
