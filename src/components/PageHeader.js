@@ -7,12 +7,12 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.primary.main,
     },
     pageHeader:{
-        padding:theme.spacing(3),
+        padding:theme.spacing(2),
         marginBottom:theme.spacing(4),
         align: 'center'
     },
     pageTitle:{
-        padding:theme.spacing(4),
+        padding:theme.spacing(2),
         color: theme.palette.primary.textColor,
         '& .MuiTypography-subtitle2':{
             marginTop: theme.spacing(3),

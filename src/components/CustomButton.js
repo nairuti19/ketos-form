@@ -3,6 +3,7 @@ import React from 'react';
 
 export default function CustomButton(props) {
     const{text, size, color, variant, onClick, ...other} = props
+    
     return ( 
         <Button
         variant = {variant}

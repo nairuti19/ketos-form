@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/';
 
+//Function that sets the values for form
 export function useForm(initialValues, validateOnChange=false, validate) {
-
     const[values, setValues] = useState(initialValues);
     const[errors,setErrors] = useState({});
 
+    //Function to handle the textfield input
     const handleInputChange = e => {
         const{name, value} = e.target
         setValues({
@@ -25,6 +26,7 @@ export function useForm(initialValues, validateOnChange=false, validate) {
     }      
 }
 
+
 const useStyles = makeStyles(theme=>({
     root:{
         '& .MuiFormControl-root': {
@@ -34,8 +36,8 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 
+//Function to generate a form
 export function CustomForm(props) {
-
     const classes = useStyles();
     const {children, ...other} = props;
     

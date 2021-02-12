@@ -5,6 +5,7 @@ import TextInput from '../components/TextInput';
 import CustomButton from '../components/CustomButton';
 
 
+//Setting initial values for the form fields
 const initialValues = {
     id: 0, 
     firstName: '',
@@ -13,6 +14,7 @@ const initialValues = {
     requestMessage: '',
 }
 
+//Adding styles to the component
 const useStyles = makeStyles(theme=>({
     form: {
         width: '100%', 
@@ -21,7 +23,6 @@ const useStyles = makeStyles(theme=>({
     submit: {
         margin: theme.spacing(2, 0, 2),
         backgroundColor: '#3879B6',
-        marginBottom: theme.spacing(8)
       },
       paper: {
         marginTop: theme.spacing(8),
@@ -44,6 +45,7 @@ const useStyles = makeStyles(theme=>({
 
 export default function SupportForm() {
 
+     //Validation function to ensure required fields and correct format
     const validate = (fieldValues = values) => {
         let validateTemp = {...errors}
         if('firstName' in fieldValues)
@@ -62,10 +64,12 @@ export default function SupportForm() {
             return Object.values(validateTemp).every(x => x == "")
     }
 
+    //Callback for Submit 
+    //Fix the if(validate) if needed
     const handleSubmit = e => {
         e.preventDefault()
         if(validate()){}
-            window.alert('testing...')
+           
     }
 
     const{

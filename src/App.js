@@ -4,19 +4,13 @@ import Header from './components/Header';
 import PageHeader from './components/PageHeader';
 import {Paper, makeStyles, CssBaseline, createMuiTheme, ThemeProvider} from '@material-ui/core';
 
+//Provides a theme for the entire app
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: "#3879B6",
       textColor: "#ffffff"
     },
-  },
-  overrides:{
-    MuiAppBar:{
-      root:{
-        transform:'translateZ(0)'
-      }
-    }
   },
 })
 
@@ -26,8 +20,10 @@ const useStyles = makeStyles(theme=>({
       }
 }))
 
+
 function App() {
   const classes = useStyles();
+
     return ( 
       <ThemeProvider theme={theme}>
         <Paper>
