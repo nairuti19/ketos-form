@@ -47,18 +47,7 @@ function uidGenerator() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
   return (
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    S4() +
-    S4()
+    S4() +S4() +"-" +S4() +"-" +S4() +"-" +S4() +"-" +S4() +S4() +S4()
   );
 }
 
@@ -91,7 +80,7 @@ export const addCustomer = async (
   return await response.json();
 };
 
-//Function to
+//Function to send request message to customer support rep via email 
 export const sendEmail = async () => {
   const response = await fetch(
     `https://n1s8xkejwd.execute-api.us-east-2.amazonaws.com/dev`,
