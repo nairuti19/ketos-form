@@ -46,18 +46,18 @@ export default function SupportForm() {
   const validate = (fieldValues = values) => {
     let validateTemp = { ...errors };
     if ("firstName" in fieldValues)
-      validateTemp.firstName = values.firstName ? "" : "This field is required";
+      validateTemp.firstName = values.firstName ? "" : "First Name is required";
     if ("lastName" in fieldValues)
-      validateTemp.lastName = values.lastName ? "" : "This field is required";
+      validateTemp.lastName = values.lastName ? "" : "Last Name is required";
     if ("email" in fieldValues)
+      validateTemp.email = values.email ? "" : "A valid email is required";
       validateTemp.emailFormat = /$^|.+@.+..+/.test(values.email)
         ? ""
-        : "Email is not valid.";
-    validateTemp.email = values.email ? "" : "This field is required";
+        : "Email is not valid";
     if ("requestMessage" in fieldValues)
       validateTemp.requestMessage = values.requestMessage
         ? ""
-        : "This field is required";
+        : "Problem description is required";
     setErrors({
       ...validateTemp,
     });
@@ -70,6 +70,7 @@ export default function SupportForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      window.alert('Form successfully submitted')
     }
   };
 
