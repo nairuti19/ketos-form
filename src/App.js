@@ -1,5 +1,7 @@
 import './App.css';
 import SupportForm from './pages/SupportForm';
+import Header from './components/Header';
+import PageHeader from './components/PageHeader';
 import {Paper, makeStyles, CssBaseline, createMuiTheme, ThemeProvider} from '@material-ui/core';
 
 const theme = createMuiTheme({
@@ -28,12 +30,14 @@ function App() {
   const classes = useStyles();
     return ( 
       <ThemeProvider theme={theme}>
-      <div>
-        <Paper className={classes.pageContent}>
+        <Paper>
         <Header/>
+        <PageHeader
+        title="Contact Customer Support"
+        subTitle="Sometimes you need a little help from your friends. Or a Ketos support rep. Don’t worry… we’re here for you."
+        />
         <SupportForm/>
         </Paper>
-      </div>
       <CssBaseline />
       </ThemeProvider>
     );
